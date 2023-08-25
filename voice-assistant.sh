@@ -2,7 +2,17 @@
 
 echo "Welcome to the Voice Assistant!"
 echo "Please enter 1 for text responses or 2 for voice responses: "
-read response
+
+while true; do
+  read response
+  case $response in
+    1) echo "You chose text responses."
+      break;;
+    2) echo "You chose voice responses."
+      break;;
+    *) echo "Invalid response. Please enter 1 or 2."
+  esac
+done
 
 session_arg=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
 
@@ -23,12 +33,11 @@ while true; do
 
   if [ "$response" = "1" ]; then
     echo $api_response | jq -r '.text' | sgpt --chat $session_arg
-  elif [ "$response" = "2" ]; then
+  else
     ai_text_response=$(echo $api_response | jq -r '.text' | sgpt --chat $session_arg)
     gtts-cli "$ai_text_response" -o output.mp3
     ffplay -nodisp -hide_banner -autoexit output.mp3
     rm output.mp3
-  else
-    echo "Invalid response. Please enter 1 or 2."
   fi
+
 done
