@@ -1,7 +1,11 @@
 #!/bin/bash
 
-echo "Welcome to the Voice Assistant!"
-echo "Please enter 1 for text responses or 2 for voice responses: "
+echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
+echo "|            Welcome to the Voice Assistant!                |"
+echo "|===========================================================|"
+echo "|         Please enter 1 for text responses or              |"
+echo "|               2 for voice responses:                      |"
+echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
 
 while true; do
   read response
