@@ -1,20 +1,32 @@
 #!/bin/bash
 
+echo ""
+echo ""
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
-echo "|            Welcome to the Voice Assistant!                |"
+echo "|              Welcome to the Voice Assistant!              |"
 echo "|===========================================================|"
-echo "|         Please enter 1 for text responses or              |"
-echo "|               2 for voice responses:                      |"
+echo "|                       Please enter                        |"
+echo "|                 - 1 for text responses                    |"
+echo "|                 - 2 for voice responses:                  |"
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
+echo ""
+echo ""
 
 while true; do
-  read response
+  read -p "Your choice: " response
   case $response in
-    1) echo "You chose text responses."
+    1) echo "" 
+      echo "You chose text responses."
+      echo "" 
       break;;
-    2) echo "You chose voice responses."
+    2) echo "" 
+      echo "You chose voice responses."
+      echo "" 
       break;;
-    *) echo "Invalid response. Please enter 1 or 2."
+    *) echo ""
+      echo " Invalid response."
+      echo "Please enter 1 or 2."
+      echo ""
   esac
 done
 
