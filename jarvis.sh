@@ -1,13 +1,13 @@
 #!/bin/bash
 
 echo ""
-echo ""
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
 echo "|               How may I assist you, Master?               |"
 echo "|===========================================================|"
+echo "|                                                           |"
 echo "|     Press Enter to stop recording, or type your prompt    |"
+echo "|                                                           |"
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
-echo ""
 echo ""
 
 # Baby blue color code for prompts
@@ -21,14 +21,15 @@ session_arg=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
 
 while true; do
   # User prompt
+  echo -e "${BLUE}"
+  echo "You:"
   ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/human-prompt.mp3 2> /dev/null
 
   arecord -d 600 -q -f cd -t wav -r 44100 > $HOME/projects/jarvis/sound/tmp.wav &
+  read input
 
-  echo -e "${BLUE}"
-  read -p "Press Enter to stop recording, or type your prompt:" input
-  echo -e "${RESET}"
   kill $!
+  echo -e "${RESET}"
 
   if [[ -z $input ]]; then
     lame -r $HOME/projects/jarvis/sound/tmp.wav $HOME/projects/jarvis/sound/tmp.mp3 2> /dev/null
@@ -42,9 +43,9 @@ while true; do
   fi
 
   # Jarvis response
-  ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/assistant-prompt.mp3 2> /dev/null
-
   echo -e "${RED}"
+  echo "Jarvis:"
+  ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/assistant-prompt.mp3 2> /dev/null
   if [[ -z $input ]]; then
     echo $api_response | jq -r '.text' | sgpt --chat $session_arg | tee $HOME/projects/jarvis/ai-text-response
   else
