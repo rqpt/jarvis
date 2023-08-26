@@ -57,6 +57,6 @@ while true; do
     rm $HOME/projects/jarvis/sound/output.mp3
   fi
 
-  sleep 2s
+  sleep 3s
 
 done
