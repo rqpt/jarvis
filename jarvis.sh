@@ -5,57 +5,57 @@ echo ""
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
 echo "|               How may I assist you, Master?               |"
 echo "|===========================================================|"
-echo "|                       Please enter                        |"
-echo "|                 - 1 for text responses                    |"
-echo "|                 - 2 for voice responses                   |"
+echo "|     Press Enter to stop recording, or type your prompt    |"
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
 echo ""
 echo ""
 
-while true; do
-  read -p "Your choice: " response
-  case $response in
-    1) echo "You chose text responses."
-      echo "" 
-      break;;
-    2) echo "You chose voice responses."
-      echo "" 
-      break;;
-    *) echo ""
-      echo "Invalid response."
-      echo "Please enter 1 or 2."
-      echo ""
-  esac
-done
+# Baby blue color code for prompts
+BLUE='\033[1;34m'
+# Baby red color code for responses
+RED='\033[1;91m'
+# Reset color code
+RESET='\033[0m'
 
 session_arg=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
 
 while true; do
-  echo "Say something ;)"
-  echo "Press (ctrl + c) when you're done."
+  # User prompt
+  ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/human-prompt.mp3 2> /dev/null
 
-  ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/human-prompt.mp3 2> /dev/null & arecord -d 600 -q -f cd -t wav -r 44100 | lame -r - $HOME/projects/jarvis/sound/tmp.mp3
-  echo ""
+  arecord -d 600 -q -f cd -t wav -r 44100 > $HOME/projects/jarvis/sound/tmp.wav &
 
-  api_response=$(curl -s https://api.openai.com/v1/audio/transcriptions \
-    -H "Authorization: Bearer $OPENAI_API_KEY" \
-    -H "Content-Type: multipart/form-data" \
-    -F "file=@$HOME/projects/jarvis/sound/tmp.mp3" \
-    -F "model=whisper-1")
+  echo -e "${BLUE}"
+  read -p "Press Enter to stop recording, or type your prompt:" input
+  echo -e "${RESET}"
+  kill $!
 
-  rm $HOME/projects/jarvis/sound/tmp.mp3
+  if [[ -z $input ]]; then
+    lame -r $HOME/projects/jarvis/sound/tmp.wav $HOME/projects/jarvis/sound/tmp.mp3 2> /dev/null
+    api_response=$(curl -s https://api.openai.com/v1/audio/transcriptions \
+      -H "Authorization: Bearer $OPENAI_API_KEY" \
+      -H "Content-Type: multipart/form-data" \
+      -F "file=@$HOME/projects/jarvis/sound/tmp.mp3" \
+      -F "model=whisper-1")
 
-  if [ "$response" = "1" ]; then
-    ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/assistant-prompt.mp3 2> /dev/null
-    echo $api_response | jq -r '.text' | sgpt --chat $session_arg
-    echo ""
-  else
-    ai_text_response=$(echo $api_response | jq -r '.text' | sgpt --chat $session_arg)
-
-    ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/assistant-prompt.mp3 2> /dev/null
-    echo $ai_text_response | festival --tts
+    rm $HOME/projects/jarvis/sound/tmp.mp3
   fi
 
-  sleep 3s
+  # Jarvis response
+  ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/assistant-prompt.mp3 2> /dev/null
 
+  echo -e "${RED}"
+  if [[ -z $input ]]; then
+    echo $api_response | jq -r '.text' | sgpt --chat $session_arg | tee $HOME/projects/jarvis/ai-text-response
+  else
+    echo $input | sgpt --chat $session_arg | tee $HOME/projects/jarvis/ai-text-response
+  fi
+  echo -e "${RESET}"
+
+  cat $HOME/projects/jarvis/ai-text-response | festival --tts
+
+  rm $HOME/projects/jarvis/ai-text-response
+  rm $HOME/projects/jarvis/sound/tmp.wav
+
+  sleep 3s
 done
