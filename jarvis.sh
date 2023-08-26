@@ -3,7 +3,7 @@
 echo ""
 echo ""
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
-echo "|              Welcome to the Voice Assistant!              |"
+echo "|               How may I assist you, Master?               |"
 echo "|===========================================================|"
 echo "|                       Please enter                        |"
 echo "|                 - 1 for text responses                    |"
