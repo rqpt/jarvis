@@ -34,7 +34,7 @@ while true; do
   echo "Say something ;)"
   echo "Press (ctrl + c) when you're done."
 
-  ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/human-prompt.mp3 2> /dev/null & arecord -q -f cd -t wav -r 44100 | lame -r - $HOME/projects/jarvis/sound/tmp.mp3
+  ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/human-prompt.mp3 2> /dev/null & arecord -d 600 -q -f cd -t wav -r 44100 | lame -r - $HOME/projects/jarvis/sound/tmp.mp3
   echo ""
 
   api_response=$(curl -s https://api.openai.com/v1/audio/transcriptions \
