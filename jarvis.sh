@@ -11,17 +11,13 @@ echo "|                                                           |"
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
 echo ""
 
-# Baby blue color code for prompts
 BLUE='\033[1;34m'
-# Baby red color code for responses
 RED='\033[1;91m'
-# Reset color code
 RESET='\033[0m'
 
 session_arg=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
 
 while true; do
-  # User prompt
   ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/human-prompt.mp3 2> /dev/null
 
   echo -e -n "${BLUE}"
@@ -48,7 +44,6 @@ while true; do
     rm $HOME/projects/jarvis/sound/tmp.mp3
   fi
 
-  # Jarvis response
   ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/assistant-prompt.mp3 2> /dev/null
   echo -e -n "${RED}"
   echo -e "\e[4mJarvis\e[0m"
