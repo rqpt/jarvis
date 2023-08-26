@@ -35,6 +35,7 @@ while true; do
     echo "🎤"
     echo ""
     lame -r $HOME/projects/jarvis/sound/tmp.wav $HOME/projects/jarvis/sound/tmp.mp3 2> /dev/null
+
     api_response=$(curl -s https://api.openai.com/v1/audio/transcriptions \
       -H "Authorization: Bearer $OPENAI_API_KEY" \
       -H "Content-Type: multipart/form-data" \
