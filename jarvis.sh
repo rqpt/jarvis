@@ -51,10 +51,9 @@ while true; do
     echo ""
   else
     ai_text_response=$(echo $api_response | jq -r '.text' | sgpt --chat $session_arg)
-    gtts-cli "$ai_text_response" -o $HOME/projects/jarvis/sound/output.mp3
+
     ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/assistant-prompt.mp3 2> /dev/null
-    ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/output.mp3 2> /dev/null
-    rm $HOME/projects/jarvis/sound/output.mp3
+    echo $ai_text_response | festival --tts
   fi
 
   sleep 3s
