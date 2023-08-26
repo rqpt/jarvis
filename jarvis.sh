@@ -12,7 +12,7 @@ echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
 echo ""
 
 BLUE='\033[1;34m'
-RED='\033[1;91m'
+GREEN="\e[38;2;137;207;153m"
 RESET='\033[0m'
 
 session_arg=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
@@ -45,11 +45,11 @@ while true; do
   fi
 
   ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/assistant-prompt.mp3 2> /dev/null
-  echo -e -n "${RED}"
+  echo -e -n "${GREEN}"
   echo -e "\e[4mJarvis\e[0m"
   echo -e "${RESET}"
 
-  echo -e -n "${RED}"
+  echo -e -n "${GREEN}"
   if [[ -z $input ]]; then
     echo $api_response | jq -r '.text' | sgpt --chat $session_arg | tee $HOME/projects/jarvis/ai-text-response
   else
