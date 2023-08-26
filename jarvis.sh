@@ -58,7 +58,9 @@ while true; do
   fi
   echo -e -n "${RESET}"
 
-  cat $HOME/projects/jarvis/ai-text-response | festival --tts
+  if [[ -z $input ]]; then
+    cat $HOME/projects/jarvis/ai-text-response | festival --tts
+  fi
 
   rm $HOME/projects/jarvis/ai-text-response
   rm $HOME/projects/jarvis/sound/tmp.wav
