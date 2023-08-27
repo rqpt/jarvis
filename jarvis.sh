@@ -17,7 +17,7 @@ RESET_COLOUR='\033[0m'
 
 ROOT_DIR=$HOME/projects/jarvis
 
-session_arg=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
+session=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
 
 while true; do
   echo -e -n "${PROMPT_COLOUR}"
@@ -26,12 +26,12 @@ while true; do
 
   echo -e -n "${PROMPT_COLOUR}"
   arecord -d 600 -q -f cd -t wav -r 44100 > $ROOT_DIR/tmp.wav &
-  read input
+  read text_input
 
   pkill arecord
   echo -e -n "${RESET_COLOUR}"
 
-  if [[ -z $input ]]; then
+  if [[ -z $text_input ]]; then
     echo "🎤"
     echo ""
     lame -r $ROOT_DIR/tmp.wav $ROOT_DIR/tmp.mp3 2> /dev/null
@@ -51,20 +51,20 @@ while true; do
 
   echo -e -n "${RESPONSE_COLOUR}"
 
-  if [[ -z $input ]]; then
-    echo -n $api_response | jq -r '.text' | sgpt --chat $session_arg | tee $ROOT_DIR/ai-text-response
-    festival --tts $ROOT_DIR/ai-text-response &
-    read -n 1
-    pkill festival
-    read -sn 1
-    rm $ROOT_DIR/ai-text-response
+  if [[ -z $text_input ]]; then
+    echo -n $api_response | jq -r '.text' | sgpt --chat $session | tee $ROOT_DIR/ai-text-response
   else
-    echo -n $input | sgpt --chat $session_arg
-    read -n 1
+    echo -n $text_input | sgpt --chat $session | tee $ROOT_DIR/ai-text-response
   fi
+
+  festival --tts $ROOT_DIR/ai-text-response &
+  read -n 1
+  pkill festival
+  read -sn 1
 
   echo -e -n "${RESET_COLOUR}"
 
+  rm $ROOT_DIR/ai-text-response
   rm $ROOT_DIR/tmp.wav
 
 done
