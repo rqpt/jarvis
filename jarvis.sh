@@ -28,7 +28,7 @@ while true; do
   arecord -d 600 -q -f cd -t wav -r 44100 > $ROOT_DIR/tmp.wav &
   read input
 
-  kill $!
+  pkill arecord
   echo -e -n "${RESET_COLOUR}"
 
   if [[ -z $input ]]; then
@@ -53,9 +53,9 @@ while true; do
 
   if [[ -z $input ]]; then
     echo -n $api_response | jq -r '.text' | sgpt --chat $session_arg | tee $ROOT_DIR/ai-text-response
-    cat $ROOT_DIR/ai-text-response | festival --tts &
+    festival --tts $ROOT_DIR/ai-text-response &
     read -n 1
-    kill $!
+    pkill festival
     read -sn 1
     rm $ROOT_DIR/ai-text-response
   else
