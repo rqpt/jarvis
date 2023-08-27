@@ -21,7 +21,6 @@ SOUND_DIR=$ROOT_DIR/sound
 session_arg=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
 
 while true; do
-
   echo -e -n "${BLUE}"
   echo -e "\e[4mYou\e[0m"
   echo -e "${RESET}"
