@@ -52,11 +52,15 @@ while true; do
   echo -e -n "${RESPONSE_COLOUR}"
 
   if [[ -z $input ]]; then
-    echo $api_response | jq -r '.text' | sgpt --chat $session_arg | tee $ROOT_DIR/ai-text-response
-    cat $ROOT_DIR/ai-text-response | festival --tts
+    echo -n $api_response | jq -r '.text' | sgpt --chat $session_arg | tee $ROOT_DIR/ai-text-response
+    cat $ROOT_DIR/ai-text-response | festival --tts &
+    read -n 1
+    kill $!
+    read -n 1
     rm $ROOT_DIR/ai-text-response
   else
-    echo $input | sgpt --chat $session_arg
+    echo -n $input | sgpt --chat $session_arg
+    read -n 1
   fi
 
   echo -e "${RESET_COLOUR}"
