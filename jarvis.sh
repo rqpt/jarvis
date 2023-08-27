@@ -17,8 +17,6 @@ RESET_COLOUR='\033[0m'
 
 ROOT_DIR=$HOME/projects/jarvis
 
-session=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
-
 while true; do
   echo -e -n "${PROMPT_COLOUR}"
   echo -e "\e[4mYou\e[0m"
@@ -52,7 +50,7 @@ while true; do
   echo -e -n "${RESPONSE_COLOUR}"
 
   if [[ -z $text_input ]]; then
-    echo -n $api_response | jq -r '.text' | sgpt --chat $session | tee $ROOT_DIR/ai-text-response
+    echo -n $api_response | jq -r '.text' | sgpt --chat temp | tee $ROOT_DIR/ai-text-response
   else
     echo -n $text_input | sgpt --chat $session | tee $ROOT_DIR/ai-text-response
   fi
