@@ -1,5 +1,10 @@
 #!/bin/bash
 
+PROMPT_COLOUR='\033[1;34m'
+RESPONSE_COLOUR="\e[1;35m"
+RESET_COLOUR='\033[0m'
+
+echo -e -n "${RESPONSE_COLOUR}"
 echo ""
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
 echo "|               How may I assist you, Master?               |"
@@ -10,10 +15,7 @@ echo "|             or after you've written your prompt           |"
 echo "|                                                           |"
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
 echo ""
-
-PROMPT_COLOUR='\033[1;34m'
-RESPONSE_COLOUR="\e[1;35m"
-RESET_COLOUR='\033[0m'
+echo -e -n "${RESET_COLOUR}"
 
 ROOT_DIR=$HOME/projects/jarvis
 
