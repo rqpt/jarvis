@@ -28,7 +28,7 @@ while true; do
   echo -e "${RESET}"
 
   echo -e -n "${BLUE}"
-  arecord -d 600 -q -f cd -t wav -r 44100 > $HOME/projects/jarvis/sound/tmp.wav &
+  arecord -d 600 -q -f cd -t wav -r 44100 > $SOUND_DIR/tmp.wav &
   read input
 
   kill $!
@@ -37,15 +37,15 @@ while true; do
   if [[ -z $input ]]; then
     echo "🎤"
     echo ""
-    lame -r $HOME/projects/jarvis/sound/tmp.wav $HOME/projects/jarvis/sound/tmp.mp3 2> /dev/null
+    lame -r $SOUND_DIR/tmp.wav $SOUND_DIR/tmp.mp3 2> /dev/null
 
     api_response=$(curl -s https://api.openai.com/v1/audio/transcriptions \
       -H "Authorization: Bearer $OPENAI_API_KEY" \
       -H "Content-Type: multipart/form-data" \
-      -F "file=@$HOME/projects/jarvis/sound/tmp.mp3" \
+      -F "file=@$SOUND_DIR/tmp.mp3" \
       -F "model=whisper-1")
 
-    rm $HOME/projects/jarvis/sound/tmp.mp3
+    rm $SOUND_DIR/tmp.mp3
   fi
 
   ffplay -nodisp -hide_banner -autoexit $HOME/projects/jarvis/sound/assistant-prompt.mp3 2> /dev/null
