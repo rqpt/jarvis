@@ -16,7 +16,6 @@ RESPONSE_COLOUR="\e[1;35m"
 RESET_COLOUR='\033[0m'
 
 ROOT_DIR=$HOME/projects/jarvis
-SOUND_DIR=$ROOT_DIR/sound
 
 session_arg=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
 
@@ -26,7 +25,7 @@ while true; do
   echo -e "${RESET_COLOUR}"
 
   echo -e -n "${PROMPT_COLOUR}"
-  arecord -d 600 -q -f cd -t wav -r 44100 > $SOUND_DIR/tmp.wav &
+  arecord -d 600 -q -f cd -t wav -r 44100 > $ROOT_DIR/tmp.wav &
   read input
 
   kill $!
@@ -35,15 +34,15 @@ while true; do
   if [[ -z $input ]]; then
     echo "🎤"
     echo ""
-    lame -r $SOUND_DIR/tmp.wav $SOUND_DIR/tmp.mp3 2> /dev/null
+    lame -r $ROOT_DIR/tmp.wav $ROOT_DIR/tmp.mp3 2> /dev/null
 
     api_response=$(curl -s https://api.openai.com/v1/audio/transcriptions \
       -H "Authorization: Bearer $OPENAI_API_KEY" \
       -H "Content-Type: multipart/form-data" \
-      -F "file=@$SOUND_DIR/tmp.mp3" \
+      -F "file=@$ROOT_DIR/tmp.mp3" \
       -F "model=whisper-1")
 
-    rm $SOUND_DIR/tmp.mp3
+    rm $ROOT_DIR/tmp.mp3
   fi
 
   echo -e "${RESPONSE_COLOUR}"
@@ -54,7 +53,7 @@ while true; do
 
   if [[ -z $input ]]; then
     echo $api_response | jq -r '.text' | sgpt --chat $session_arg | tee $ROOT_DIR/ai-text-response
-    cat $HOME/projects/jarvis/ai-text-response | festival --tts
+    cat $ROOT_DIR/ai-text-response | festival --tts
     rm $ROOT_DIR/ai-text-response
   else
     echo $input | sgpt --chat $session_arg
@@ -62,7 +61,7 @@ while true; do
 
   echo -e "${RESET_COLOUR}"
 
-  rm $SOUND_DIR/tmp.wav
+  rm $ROOT_DIR/tmp.wav
 
   sleep 3s
 done
