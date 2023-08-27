@@ -47,7 +47,7 @@ while true; do
     rm $SOUND_DIR/tmp.mp3
   fi
 
-  echo -e -n "${GREEN}"
+  echo -e "${GREEN}"
   echo -e "\e[4mJarvis\e[0m"
   echo -e "${RESET}"
 
@@ -63,8 +63,8 @@ while true; do
     cat $HOME/projects/jarvis/ai-text-response | festival --tts
   fi
 
-  rm $HOME/projects/jarvis/ai-text-response
-  rm $HOME/projects/jarvis/sound/tmp.wav
+  rm $ROOT_DIR/ai-text-response
+  rm $SOUND_DIR/tmp.wav
 
   sleep 3s
 done
