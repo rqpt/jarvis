@@ -18,6 +18,7 @@ RESET_COLOUR='\033[0m'
 ROOT_DIR=$HOME/projects/jarvis
 
 while true; do
+
   echo -e -n "${PROMPT_COLOUR}"
   echo -e "\e[4mYou\e[0m"
   echo -e "${RESET_COLOUR}"
