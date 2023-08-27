@@ -56,7 +56,7 @@ while true; do
   else
     echo $input | sgpt --chat $session_arg | tee $HOME/projects/jarvis/ai-text-response
   fi
-  echo -e -n "${RESET}"
+  echo -e "${RESET}"
 
   if [[ -z $input ]]; then
     cat $HOME/projects/jarvis/ai-text-response | festival --tts
