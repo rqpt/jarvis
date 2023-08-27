@@ -67,5 +67,4 @@ while true; do
 
   rm $ROOT_DIR/tmp.wav
 
-  sleep 3s
 done
