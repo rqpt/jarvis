@@ -56,14 +56,14 @@ while true; do
     cat $ROOT_DIR/ai-text-response | festival --tts &
     read -n 1
     kill $!
-    read -n 1
+    read -sn 1
     rm $ROOT_DIR/ai-text-response
   else
     echo -n $input | sgpt --chat $session_arg
     read -n 1
   fi
 
-  echo -e "${RESET_COLOUR}"
+  echo -e -n "${RESET_COLOUR}"
 
   rm $ROOT_DIR/tmp.wav
 
