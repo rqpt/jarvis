@@ -15,6 +15,9 @@ BLUE='\033[1;34m'
 GREEN="\e[38;2;137;207;153m"
 RESET='\033[0m'
 
+ROOT_DIR=$HOME/projects/jarvis
+SOUND_DIR=$ROOT_DIR/sound
+
 session_arg=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
 
 while true; do
