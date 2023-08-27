@@ -25,7 +25,6 @@ while true; do
   echo -e -n "${PROMPT_COLOUR}"
   arecord -d 600 -q -f cd -t wav -r 44100 > $ROOT_DIR/tmp.wav &
   read text_input
-
   pkill arecord
   echo -e -n "${RESET_COLOUR}"
 
