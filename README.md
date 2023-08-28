@@ -6,6 +6,10 @@ voice and text responses back.
 
 User input is kept very minimal.
 
+## Compatibility
+
+This should be usable from linux or mac systems. Testing still needs to be done to confirm this.
+
 ## Installation
 
 No installation for the tool itself, it is simply a bash script. You will just need to install a few dependencies-
