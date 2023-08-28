@@ -57,7 +57,7 @@ while true; do
   fi
 
   festival --tts $ROOT_DIR/ai-text-response &
-  read -n 1
+  read -sn 1
   pkill festival
   read -sn 1
 
