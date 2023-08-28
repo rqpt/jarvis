@@ -4,24 +4,23 @@ PROMPT_COLOUR='\033[1;34m'
 RESPONSE_COLOUR="\e[1;35m"
 RESET_COLOUR='\033[0m'
 
-echo -e -n "${RESPONSE_COLOUR}"
-echo ""
+echo -e "${RESPONSE_COLOUR}"
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
-echo "|               How may I assist you, Master?               |"
+echo "|                   You bellowed, master?                   |"
+echo "|                     How can I assist?                     |"
 echo "|===========================================================|"
+echo "|                           hint:                           |"
 echo "|                                                           |"
 echo "|               Press Enter to stop recording,              |"
 echo "|             or after you've written your prompt           |"
-echo "|                                                           |"
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
-echo ""
-echo -e -n "${RESET_COLOUR}"
+echo -e "${RESET_COLOUR}"
 
 ROOT_DIR=$HOME/projects/jarvis
 
 while true; do
 
-  echo -e -n "${PROMPT_COLOUR}"
+  echo -e "${PROMPT_COLOUR}"
   echo -e "\e[4mYou\e[0m"
   echo -e "${RESET_COLOUR}"
 
