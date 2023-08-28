@@ -8,7 +8,7 @@ User input is kept very minimal.
 
 ## Compatibility
 
-This should be usable from linux or mac systems. Testing still needs to be done to confirm this.
+This should be usable from linux or macOS systems. Testing still needs to be done to confirm this.
 
 ## Installation
 
