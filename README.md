@@ -7,6 +7,8 @@ voice and text responses back.
 User input is kept very minimal.
 
 ## Installation
+
+No installation for the tool itself, it is simply a bash script. You will just need to install a few dependencies-
 ```bash
 sudo apt install lame festival jq curl
 pip install shell-gpt
