@@ -1,10 +1,10 @@
 #!/bin/bash
 
+ROOT_DIR=$HOME/projects/jarvis
+
 PROMPT_COLOUR='\033[1;34m'
 RESPONSE_COLOUR="\e[1;35m"
 RESET_COLOUR='\033[0m'
-
-ROOT_DIR=$HOME/projects/jarvis
 
 echo -e "${RESPONSE_COLOUR}"
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
