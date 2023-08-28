@@ -4,6 +4,8 @@ PROMPT_COLOUR='\033[1;34m'
 RESPONSE_COLOUR="\e[1;35m"
 RESET_COLOUR='\033[0m'
 
+ROOT_DIR=$HOME/projects/jarvis
+
 echo -e "${RESPONSE_COLOUR}"
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
 echo "|                   You bellowed, master?                   |"
@@ -15,8 +17,6 @@ echo "|               Press Enter to stop recording,              |"
 echo "|             or after you've written your prompt           |"
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
 echo -e "${RESET_COLOUR}"
-
-ROOT_DIR=$HOME/projects/jarvis
 
 while true; do
 
