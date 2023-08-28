@@ -30,7 +30,7 @@ OPENAI_API_KEY=<key>
 ## Use
 
 ### Prompt
-Call `jarvis` and a voice recording will start. 
+Call `jarvis` in your terminal and a voice recording will start. 
 Press enter and the recording will be used as a chatgpt prompt. 
 You can alternatively type your prompt, and that will be used as the prompt instead.
 
