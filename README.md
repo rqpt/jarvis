@@ -24,7 +24,7 @@ pip install shell-gpt
 OPENAI_API_KEY=<key>
 ```
 2. Put the script in your ~/.local/bin/ directory.
-3. Set create a folder anywhere where the script's temporary files can be stored
+3. Create a folder anywhere in your filesystem where the script's temporary files can be stored
 4. Open the script file and set the ROOT_DIR variable to the path for the folder you just created.
 
 ## Use
