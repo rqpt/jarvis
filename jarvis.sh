@@ -51,9 +51,9 @@ while true; do
   echo -e -n "${RESPONSE_COLOUR}"
 
   if [[ -z $text_input ]]; then
-    echo -n $api_response | jq -r '.text' | sgpt --chat temp | tee $ROOT_DIR/ai-text-response
+    echo -n $api_response | jq -r '.text' | sgpt --chat longrunning | tee $ROOT_DIR/ai-text-response
   else
-    echo -n $text_input | sgpt --chat temp | tee $ROOT_DIR/ai-text-response
+    echo -n $text_input | sgpt --chat longrunning | tee $ROOT_DIR/ai-text-response
   fi
 
   festival --tts $ROOT_DIR/ai-text-response &
