@@ -18,6 +18,8 @@ echo "|             or after you've written your prompt           |"
 echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
 echo -e "${RESET_COLOUR}"
 
+read start
+
 while true; do
 
   echo -e "${PROMPT_COLOUR}"
